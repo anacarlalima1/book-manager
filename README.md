@@ -57,6 +57,7 @@ Adotamos uma estrutura organizada baseada no **Repository Pattern** para facilit
 │   ├── Unit/                   # Testes unitários
 │   ├── Feature/                # Testes de integração
 └── docker-compose.yml          # Configuração do Docker
+```
 
 # 📚 Como Executar o Projeto
 
@@ -81,6 +82,7 @@ Certifique-se de ter as seguintes ferramentas instaladas na sua máquina:
 ```bash
 git clone https://github.com/anacarlalima1/book-manager.git
 cd book-manager
+```
 
 ## 🛠 Configuração do Arquivo `.env`
 
@@ -88,20 +90,23 @@ Crie o arquivo `.env` baseado no exemplo fornecido:
 
 ```bash
 cp .env.example .env
-Atualize as configurações do banco de dados no arquivo .env:
+```
 
-env
-Copiar código
+Atualize as configurações do banco de dados no arquivo .env:
+```bash
+
 DB_CONNECTION=mysql
 DB_HOST=db
 DB_PORT=3306
 DB_DATABASE=bookmanager
 DB_USERNAME=root
 DB_PASSWORD=root
+```
 Para testes, crie o arquivo .env.testing:
 
 ```bash
 cp .env.example .env.testing
+```
 Atualize as configurações no arquivo .env.testing para usar um banco de dados diferente:
 
 ```bash
@@ -111,16 +116,20 @@ DB_PORT=3306
 DB_DATABASE=bookmanagertesting
 DB_USERNAME=root
 DB_PASSWORD=root
+```
 Gere a chave da aplicação:
 
 ```bash
 php artisan key:generate
+```
 
 ## 🐳 Subir os Contêineres com Docker
 Inicie os serviços utilizando o Docker:
 
 ```bash
 docker-compose up --build -d
+```
+
 Os contêineres configurados incluem:
 
 App (Laravel): Servidor PHP para executar o Laravel.
@@ -129,33 +138,42 @@ Verifique os contêineres em execução:
 
 ```bash
 docker ps
+```
 
 ## 📦 Instalar Dependências do Laravel
 Acesse o contêiner do Laravel:
 
 ```bash
 docker exec -it book_manager_app bash
+```
 
 Dentro do contêiner, instale as dependências do Laravel:
 
 ```bash
 composer install
+```
 
 🗄️ Configuração do Banco de Dados
 Aplique as migrações para criar as tabelas no banco de dados:
 
 ```bash
 php artisan migrate
+```
+
 Popule o banco de dados com dados iniciais:
 
 ```bash
 php artisan db:seed
+```
+
 
 ** **🚀 Inicie o Servidor
 Para iniciar o servidor Laravel, execute:
 
 ```bash
 php artisan serve
+```
+
 O servidor estará disponível em: http://localhost:8000
 
 🛠 Comandos Úteis
@@ -164,35 +182,51 @@ Subir os contêineres:
 
 ```bash
 docker-compose up --build -d
+```
+
 Parar os contêineres:
 
 ```bash
 docker-compose down
+```
+
 Acessar o contêiner do Laravel:
 
 ```bash
-docker exec -it book_manager_app bash
+docker exec -it book-manager-backend bash
+```
+
 Visualizar logs de um contêiner:
 
 ```bash
 docker logs <container_name>
+```
+
 Laravel
 Aplicar migrações:
 
 ```bash
 php artisan migrate
+```
+
 Rodar seeds:
 
 ```bash
 php artisan db:seed
+```
+
 Limpar cache de configuração:
 
 ```bash
 php artisan config:clear
+```
+
 Gerar cache de configuração:
 
 ```bash
 php artisan config:cache
+```
+
 
 ## 🧪 Testes
 Rodar Testes Automatizados
@@ -200,9 +234,12 @@ Execute todos os testes automatizados:
 
 ```bash
 php artisan test
+```
+
 Configuração do Banco de Dados de Teste
 Certifique-se de que o banco de testes está configurado corretamente no arquivo .env.testing. Aplique as migrações no ambiente de testes:
 
 ```bash
-php artisan migrate --env=testing
+php artisan migrate --database=mysql_test
+```
 
