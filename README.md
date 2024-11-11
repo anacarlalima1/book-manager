@@ -1,64 +1,208 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# 📚 Book Manager System
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Bem-vindo ao **Book Manager System**! Este projeto foi desenvolvido para gerenciar registros de livros com funcionalidades como criação, edição, exclusão e exibição de detalhes. Utilizamos uma abordagem baseada em boas práticas, incluindo padrões de design como **Repository Pattern** e separação de responsabilidades. O sistema utiliza Laravel no backend e Blade para renderização de views no frontend.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🛠 Tecnologias Utilizadas
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **PHP 8.2**: Linguagem de programação principal utilizada no backend.
+- **Laravel 11**: Framework PHP para desenvolvimento rápido, com foco em organização e escalabilidade.
+- **Docker**: Ambiente containerizado para fácil configuração e execução.
+- **MySQL**: Banco de dados relacional para armazenar os registros de livros.
+- **Bootstrap 5**: Framework CSS para estilização e responsividade.
+- **Font Awesome**: Biblioteca de ícones para visualização intuitiva.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## ⚙️ Funcionalidades
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Listagem de Livros**: Exibe todos os livros cadastrados em uma tabela.
+- **Adicionar Livros**: Formulário para criar novos registros de livros.
+- **Editar Livros**: Funcionalidade para alterar dados de livros existentes.
+- **Excluir Livros**: Permite remover livros com confirmação via modal.
+- **Paginação Customizada**: Interface amigável e estilizada para navegação entre páginas.
+- **404 Personalizado**: Página de erro customizada para rotas inexistentes.
+- **Eventos e Filas**: Implementação de eventos para notificar a criação de livros via e-mail.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 🧱 Arquitetura do Projeto
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Adotamos uma estrutura organizada baseada no **Repository Pattern** para facilitar a manutenção e escalabilidade.
 
-### Premium Partners
+### 📂 Estrutura de Diretórios
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+```bash
+.
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/        # Controladores para gerenciar as requisições
+│   │   ├── Requests/           # Validações de formulários
+│   ├── Repositories/           # Implementação do padrão Repository
+│   ├── Services/               # Regras de negócio centralizadas
+│   ├── Events/                 # Eventos do sistema (ex: BookCreated)
+│   ├── Listeners/              # Escutadores para os eventos (ex: SendBookCreatedEmail)
+├── database/
+│   ├── migrations/             # Scripts para criação das tabelas do banco de dados
+│   ├── seeders/                # Dados iniciais para popular o banco
+├── resources/
+│   ├── views/                  # Arquivos Blade para renderização do frontend
+│       ├── books/              # Views específicas para o módulo de livros
+│       ├── layouts/            # Layouts gerais
+│   ├── sass/                   # Estilizações customizadas
+├── routes/
+│   ├── web.php                 # Rotas do sistema
+├── tests/
+│   ├── Unit/                   # Testes unitários
+│   ├── Feature/                # Testes de integração
+└── docker-compose.yml          # Configuração do Docker
 
-## Contributing
+# 📚 Como Executar o Projeto
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Este guia detalha os passos para configurar e executar o projeto **Book Manager System** utilizando Docker e Laravel.
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🛠 Pré-requisitos
 
-## Security Vulnerabilities
+Certifique-se de ter as seguintes ferramentas instaladas na sua máquina:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- **Docker**: Para criar e gerenciar os contêineres.
+- **Docker Compose**: Para orquestrar os contêineres.
+- **Node.js & npm** (opcional, se rodar fora do Docker): Para instalar as dependências do frontend.
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🚀 Passo a Passo
+
+### 1. Clone o Repositório
+
+```bash
+git clone https://github.com/anacarlalima1/book-manager.git
+cd book-manager
+
+## 🛠 Configuração do Arquivo `.env`
+
+Crie o arquivo `.env` baseado no exemplo fornecido:
+
+```bash
+cp .env.example .env
+Atualize as configurações do banco de dados no arquivo .env:
+
+env
+Copiar código
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=bookmanager
+DB_USERNAME=root
+DB_PASSWORD=root
+Para testes, crie o arquivo .env.testing:
+
+```bash
+cp .env.example .env.testing
+Atualize as configurações no arquivo .env.testing para usar um banco de dados diferente:
+
+```bash
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=bookmanagertesting
+DB_USERNAME=root
+DB_PASSWORD=root
+Gere a chave da aplicação:
+
+```bash
+php artisan key:generate
+
+## 🐳 Subir os Contêineres com Docker
+Inicie os serviços utilizando o Docker:
+
+```bash
+docker-compose up --build -d
+Os contêineres configurados incluem:
+
+App (Laravel): Servidor PHP para executar o Laravel.
+MySQL: Banco de dados relacional para armazenar os registros.
+Verifique os contêineres em execução:
+
+```bash
+docker ps
+
+## 📦 Instalar Dependências do Laravel
+Acesse o contêiner do Laravel:
+
+```bash
+docker exec -it book_manager_app bash
+
+Dentro do contêiner, instale as dependências do Laravel:
+
+```bash
+composer install
+
+🗄️ Configuração do Banco de Dados
+Aplique as migrações para criar as tabelas no banco de dados:
+
+```bash
+php artisan migrate
+Popule o banco de dados com dados iniciais:
+
+```bash
+php artisan db:seed
+
+** **🚀 Inicie o Servidor
+Para iniciar o servidor Laravel, execute:
+
+```bash
+php artisan serve
+O servidor estará disponível em: http://localhost:8000
+
+🛠 Comandos Úteis
+Gerenciamento do Docker
+Subir os contêineres:
+
+```bash
+docker-compose up --build -d
+Parar os contêineres:
+
+```bash
+docker-compose down
+Acessar o contêiner do Laravel:
+
+```bash
+docker exec -it book_manager_app bash
+Visualizar logs de um contêiner:
+
+```bash
+docker logs <container_name>
+Laravel
+Aplicar migrações:
+
+```bash
+php artisan migrate
+Rodar seeds:
+
+```bash
+php artisan db:seed
+Limpar cache de configuração:
+
+```bash
+php artisan config:clear
+Gerar cache de configuração:
+
+```bash
+php artisan config:cache
+
+## 🧪 Testes
+Rodar Testes Automatizados
+Execute todos os testes automatizados:
+
+```bash
+php artisan test
+Configuração do Banco de Dados de Teste
+Certifique-se de que o banco de testes está configurado corretamente no arquivo .env.testing. Aplique as migrações no ambiente de testes:
+
+```bash
+php artisan migrate --env=testing
+
