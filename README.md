@@ -83,6 +83,11 @@ Certifique-se de ter as seguintes ferramentas instaladas na sua máquina:
 git clone https://github.com/anacarlalima1/book-manager.git
 cd book-manager
 ```
+### 2. Dê permissões a pasta storage:
+
+```bash
+chmod o+w ./storage/ -R
+```
 
 ## 🛠 Configuração do Arquivo `.env`
 
@@ -102,20 +107,15 @@ DB_DATABASE=bookmanager
 DB_USERNAME=root
 DB_PASSWORD=root
 ```
-Para testes, crie o arquivo .env.testing:
+Para testes, cole as configurações do banco de testes no arquivo .env:
 
 ```bash
-cp .env.example .env.testing
-```
-Atualize as configurações no arquivo .env.testing para usar um banco de dados diferente:
-
-```bash
-DB_CONNECTION=mysql
-DB_HOST=db
-DB_PORT=3306
-DB_DATABASE=bookmanagertesting
-DB_USERNAME=root
-DB_PASSWORD=root
+DB_CONNECTION_TEST=mysql
+DB_HOST_TEST=db
+DB_PORT_TEST=3306
+DB_DATABASE_TEST=bookmanagertesting
+DB_USERNAME_TEST=root
+DB_PASSWORD_TEST=root
 ```
 Gere a chave da aplicação:
 
@@ -140,11 +140,11 @@ Verifique os contêineres em execução:
 docker ps
 ```
 
-## 📦 Instalar Dependências do Laravel
+## 📦 Instalar Dependências do Laravel, se necessário
 Acesse o contêiner do Laravel:
 
 ```bash
-docker exec -it book_manager_app bash
+docker exec -it book-manager-backend bash
 ```
 
 Dentro do contêiner, instale as dependências do Laravel:
@@ -154,6 +154,29 @@ composer install
 ```
 
 🗄️ Configuração do Banco de Dados
+
+Para criar o banco rode os seguintes comandos:
+
+Entre no contêiner do mysql:
+```bash
+docker exec -it mais-saber-mysql bash
+```
+
+```bash
+mysql -u root -p
+```
+A senha é root.
+
+Crie o banco com o nome que vai ser colocado no .env: 
+```bash
+create database bookmanager;
+```
+
+Coloque para usar o database criado:
+```bash
+use bookmanager; 
+```
+
 Aplique as migrações para criar as tabelas no banco de dados:
 
 ```bash
@@ -166,12 +189,25 @@ Popule o banco de dados com dados iniciais:
 php artisan db:seed
 ```
 
+🗄️ Configuração do Banco de Dados de Teste
+Aplique as migrações para criar as tabelas no banco de dados de teste:
+
+```bash
+php artisan migrate --database=mysql_test
+```
+
+Popule o banco de dados com dados iniciais:
+
+```bash
+php artisan db:seed --database=mysql_test
+```
+
 
 ** **🚀 Inicie o Servidor
 Para iniciar o servidor Laravel, execute:
 
 ```bash
-php artisan serve
+docker-compose up -d
 ```
 
 O servidor estará disponível em: http://localhost:8000
@@ -202,19 +238,6 @@ Visualizar logs de um contêiner:
 docker logs <container_name>
 ```
 
-Laravel
-Aplicar migrações:
-
-```bash
-php artisan migrate
-```
-
-Rodar seeds:
-
-```bash
-php artisan db:seed
-```
-
 Limpar cache de configuração:
 
 ```bash
@@ -235,11 +258,3 @@ Execute todos os testes automatizados:
 ```bash
 php artisan test
 ```
-
-Configuração do Banco de Dados de Teste
-Certifique-se de que o banco de testes está configurado corretamente no arquivo .env.testing. Aplique as migrações no ambiente de testes:
-
-```bash
-php artisan migrate --database=mysql_test
-```
-
