@@ -159,7 +159,7 @@ Para criar o banco rode os seguintes comandos:
 
 Entre no contêiner do mysql:
 ```bash
-docker exec -it mais-saber-mysql bash
+docker exec -it book-manager-mysql bash
 ```
 
 ```bash
