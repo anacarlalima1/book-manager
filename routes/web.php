@@ -23,5 +23,8 @@ Route::resource('/', BookController::class)
         'edit' => 'books.edit',
         'update' => 'books.update',
         'destroy' => 'books.destroy',
-    ]);
+    ])->where(['book' => '[0-9]+']);
 
+Route::fallback(function () {
+    return response()->view('books.errors.404', [], 404);
+});

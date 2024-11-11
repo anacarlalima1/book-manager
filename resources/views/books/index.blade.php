@@ -29,8 +29,10 @@
                 <td>{{ $book->publication_year }}</td>
                 <td>
                     <div class="d-inline-flex align-items-center">
-
-                        <a href="{{ route('books.edit', $book->id) }}" class="text-primary me-2">
+                        <a href="{{ route('books.show', $book->id) }}" class="text-dark me-3" title="Ver detalhes">
+                            <i class="bi bi-eye-fill"></i>
+                        </a>
+                        <a href="{{ route('books.edit', $book->id) }}" class="text-dark me-2">
                             <i class="bi bi-pencil-fill"></i>
                         </a>
                         <form action="{{ route('books.destroy', $book->id) }}" method="POST" class="d-inline-block">

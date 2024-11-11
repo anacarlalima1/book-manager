@@ -8,6 +8,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface BookRepositoryInterface
 {
     public function getAll(int $perPage): ?LengthAwarePaginator;
+    public function find(int $id): ?Book;
 
     public function create(array $book): Book;
 

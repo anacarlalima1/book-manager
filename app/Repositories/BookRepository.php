@@ -11,6 +11,10 @@ class BookRepository implements BookRepositoryInterface
     {
         return Book::paginate($perPage);
     }
+    public function find(int $id): ?Book
+    {
+        return Book::find($id);
+    }
 
     public function create(array $book): Book
     {

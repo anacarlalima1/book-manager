@@ -19,6 +19,10 @@ class BookService
     {
         return $this->bookRepository->getAll($perPage);
     }
+    public function getBookById(int $id): ?Book
+    {
+        return $this->bookRepository->find($id);
+    }
     public function createBook(array $data): Book
     {
         return $this->bookRepository->create($data);

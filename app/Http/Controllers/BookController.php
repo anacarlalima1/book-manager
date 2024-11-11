@@ -22,7 +22,17 @@ class BookController extends Controller
         $books = $this->bookService->getAllBooks(10);
         return view('books.index', compact('books'));
     }
+    public function show(int $id)
+    {
 
+        $book = $this->bookService->getBookById($id);
+
+        if (!$book) {
+            abort(404, 'Livro não encontrado.');
+        }
+
+        return view('books.show', compact('book'));
+    }
     public function create()
     {
         return view('books.create');
